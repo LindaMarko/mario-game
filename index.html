@@ -1,12 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mario Game</title>
+    <link rel='stylesheet' href='styles.css'>
+  </head>
+  <body>
+    <div id='modal' class='modal'>
+      <div class="button-container">
+        <button id='register-button'>Register</button>
+        <button id='login-button' class='not-active'>Login</button>
+      </div>
+      <form onsubmit='' id='register-form'>
+        <label for="register-email"></label>
+        <input type='email' id='register-email' placeholder='Your email..' required>
+        <label for="register-password">Password</label>
+        <input type='password' id='register-password' placeholder='Password' pattern='.{6,}'>
+        <label for="register-username"></label>
+        <input id='register-username' placeholder='User' required>
+        <br>
+        <input type="submit" value='Sign Up'>
+      </form>
+      <form onsubmit='' id='login-form' class='hidden'>
+        <label for="login-email"></label>
+        <input type='email' id='login-email' placeholder='Your email..' required>
+        <label for="login-password">Password</label>
+        <input type='password' id='login-password' placeholder='Password' pattern='.{6,}'>
+        <br>
+        <input type="submit" value='Sign In'>
+      </form>
+    </div>
+    <div class="info-container">
+      <button id='logout-button' class='hidden'>Log out</button>
+      <h3 id='username'></h3>
+      <h3 id='highscore-tag' class='hidden'>Highscore: <span id='highscore'></span></h3>
+    </div>
+    <script src="https://kaboomjs.com/lib/0.5.0/kaboom.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@11.0.0"></script>
+    <script src='game.js'></script>
+  </body>
 </html>
