@@ -75,7 +75,7 @@ function login(event) {
 
 function logout() {
   account
-    .deleteSession()
+    .deleteSessions()
     .then(() => {
       alert('Logged out');
       console.log('Current Session deleted');
@@ -363,4 +363,4 @@ function startGame() {
   start('game', { level: 0, score: 0 });
 }
 
-startGame();
+//startGame();
