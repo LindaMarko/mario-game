@@ -137,6 +137,17 @@ function startGame() {
     };
 
     const gameLevel = addLevel(maps[level], levelCfg);
+
+    const scoreLabel = add([
+      text(score),
+      pos(30, 6),
+      layer('ui'),
+      {
+        value: score,
+      },
+    ]);
+
+    add([text(' level ' + parseInt(level + 1)), pos(40, 6)]);
   });
 
   start('game', { level: 0, score: 0 });
