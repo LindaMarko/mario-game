@@ -148,6 +148,54 @@ function startGame() {
     ]);
 
     add([text(' level ' + parseInt(level + 1)), pos(40, 6)]);
+
+    const player = add([
+      sprite('mario', solid()),
+      pos(30, 0),
+      body(),
+      origin('bot'),
+    ]);
+
+    player.action(() => {
+      camPos(player.pos);
+      if (player.pos.y >= fallDeath) {
+        go('lose', { score: scoreLabel.value });
+      }
+    });
+
+    player.collides('pipe', () => {
+      keyPress('down', () => {
+        go('game', {
+          level: (level + 1) % maps.length,
+          score: scoreLabel.value,
+        });
+      });
+    });
+
+    keyDown('left', () => {
+      player.move(-moveSpeed, 0);
+    });
+
+    keyDown('right', () => {
+      player.move(moveSpeed, 0);
+    });
+
+    player.action(() => {
+      if (player.grounded()) {
+        isJumping = false;
+      }
+    });
+
+    keyPress('space', () => {
+      if (player.grounded()) {
+        isJumping = true;
+        player.jump(currentJumpForce);
+      }
+    });
+
+    scene('lose', ({ score }) => {
+      add([text(score, 32), origin('center'), pos(width() / 2, height() / 2)]);
+    });
   });
 
   start('game', { level: 0, score: 0 });
