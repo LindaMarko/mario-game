@@ -151,15 +151,15 @@ function startGame() {
     const gameLevel = addLevel(maps[level], levelCfg);
 
     const scoreLabel = add([
-      text(score),
-      pos(30, 6),
+      text(`Your score: ${score}`),
+      pos(30, 25),
       layer('ui'),
       {
         value: score,
       },
     ]);
 
-    add([text(' level ' + parseInt(level + 1)), pos(40, 6)]);
+    add([text(' Level ' + parseInt(level + 1)), pos(22, 6)]);
 
     // Mario and his moves
     const player = add([
@@ -225,7 +225,7 @@ function startGame() {
     player.collides('coin', (c) => {
       destroy(c);
       scoreLabel.value++;
-      scoreLabel.text = scoreLabel.value;
+      scoreLabel.text = `Your score: ${scoreLabel.value}`;
     });
 
     action('dangerous', (d) => {
