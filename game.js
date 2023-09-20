@@ -2,6 +2,12 @@ const { Client, Account, Databases, ID, Query } = Appwrite;
 const projectId = '65041f48f3669d07e15e';
 const databaseId = '650935a1ce697466675c';
 const collectionId = '650935b9502e2c261255';
+const modalElement = document.getElementById('modal');
+const logoutButton = document.getElementById('logout-button');
+const highScoreTag = document.getElementById('highscore-tag');
+const highScoreElement = document.getElementById('highscore');
+const usernameElement = document.getElementById('username');
+const canvas = document.querySelector('canvas');
 
 const client = new Client()
   .setEndpoint('https://cloud.appwrite.io/v1')
@@ -10,8 +16,19 @@ const client = new Client()
 const account = new Account(client);
 const database = new Databases(client);
 
+async function isLoggedIn() {
+  return account
+    .get()
+    .then((response) => {
+      if (response) {
+        return true;
+      }
+      return false;
+    })
+    .catch((error) => console.error(error));
+}
+
 function register(event) {
-  event.preventDefault();
   account
     .create(
       ID.unique(),
@@ -36,11 +53,56 @@ function register(event) {
         });
     })
     .catch((error) => console.error(error));
+  event.preventDefault();
+}
+
+function login(event) {
+  account
+    .createEmailSession(
+      event.target.elements['login-email'].value,
+      event.target.elements['login-password'].value
+    )
+    .then(() => {
+      showDisplay();
+      client.subscribe('account'),
+        (response) => {
+          console.log(response);
+        };
+    })
+    .catch((error) => console.error(error));
+  event.preventDefault();
+}
+
+function logout() {
+  account
+    .deleteSession()
+    .then(() => {
+      alert('Logged out');
+      console.log('Current Session deleted');
+      showDisplay();
+      highScoreElement.textContent = '';
+    })
+    .catch((error) => console.error(error));
 }
 
 function showDisplay() {
-  const modalElement = document.getElementById('modal');
   modalElement.classList.add('hidden');
+  isLoggedIn()
+    .then((isLogin) => {
+      if (isLogin) {
+        modalElement.classList.add('hidden');
+        logoutButton.classList.remove('hidden');
+        highScoreTag.classList.remove('hidden');
+        startGame();
+      } else {
+        modalElement.classList.remove('hidden');
+        logoutButton.classList.add('hidden');
+        highScoreTag.classList.add('hidden');
+        usernameElement.textContent = '';
+        if (canvas) canvas.remove();
+      }
+    })
+    .catch((error) => console.error(error));
 }
 
 showDisplay();
@@ -106,7 +168,7 @@ function startGame() {
         '£                                          £',
         '£                                          £',
         '£                                          £',
-        '£                                          £',
+        '£                                x         £',
         '£        @@@*@@                 xx         £',
         '£                              xxx         £',
         '£                             xxxx   x   -+£',
@@ -120,9 +182,9 @@ function startGame() {
         '=                                                                               =',
         '=                                                                               =',
         '=      %%=*=@                  xx                                               =',
-        '=                             xxx               @=@=@          x   %%           =',
+        '=                             xxx               @=@=          x   %%            =',
         '=                            xxxx   x                        x x       -+       =',
-        '=                ^    z  ^  xxxxx   x               ^    ^ x x x       ()       =',
+        '=                ^    z  ^  xxxxx   x               ^    ^ x x x       ^()      =',
         '=========================================================================     ===',
       ],
     ];
@@ -219,7 +281,7 @@ function startGame() {
 
     player.collides('mushroom', (m) => {
       destroy(m);
-      player.biggify(6);
+      player.biggify(8);
     });
 
     player.collides('coin', (c) => {

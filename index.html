@@ -23,7 +23,7 @@
         <br>
         <input type="submit" value='Sign Up'>
       </form>
-      <form onsubmit='' id='login-form' class='hidden'>
+      <form onsubmit='login(event)' id='login-form' class='hidden'>
         <label for="login-email"></label>
         <input type='email' id='login-email' placeholder='Your email..' required>
         <label for="login-password">Password</label>
@@ -33,7 +33,7 @@
       </form>
     </div>
     <div class="info-container">
-      <button id='logout-button' class='hidden'>Log out</button>
+      <button id='logout-button' onclick='logout()' class='hidden'>Log out</button>
       <h3 id='username'></h3>
       <h3 id='highscore-tag' class='hidden'>Highscore: <span id='highscore'></span></h3>
     </div>
