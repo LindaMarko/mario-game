@@ -110,8 +110,20 @@ function startGame() {
         '£        @@@*@@                 xx         £',
         '£                              xxx         £',
         '£                             xxxx   x   -+£',
-        '£                 z    z     xxxxx   x   ()£',
+        '£                 z    z  z  xxxxx   x   ()£',
         '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',
+      ],
+      [
+        '=                                                                               =',
+        '=                                                                               =',
+        '=                                                                               =',
+        '=                                                                               =',
+        '=                                                                               =',
+        '=      %%=*=@                  xx                                               =',
+        '=                             xxx               @=@=@          x   %%           =',
+        '=                            xxxx   x                        x x       -+       =',
+        '=                ^    z  ^  xxxxx   x               ^    ^ x x x       ()       =',
+        '=========================================================================     ===',
       ],
     ];
 
@@ -237,10 +249,14 @@ function startGame() {
 
     player.collides('pipe', () => {
       keyPress('down', () => {
-        go('game', {
-          level: (level + 1) % maps.length,
-          score: scoreLabel.value,
-        });
+        if (level == 2) {
+          go('win', { score: scoreLabel.value });
+        } else {
+          go('game', {
+            level: (level + 1) % maps.length,
+            score: scoreLabel.value,
+          });
+        }
       });
     });
 
@@ -266,7 +282,19 @@ function startGame() {
     });
 
     scene('lose', ({ score }) => {
-      add([text(score, 32), origin('center'), pos(width() / 2, height() / 2)]);
+      add([
+        text(`Game Over! Score: ${score}`, 32),
+        origin('center'),
+        pos(width() / 2, height() / 2),
+      ]);
+    });
+
+    scene('win', ({ score }) => {
+      add([
+        text(`You won! Score: ${score}`, 32),
+        origin('center'),
+        pos(width() / 2, height() / 2),
+      ]);
     });
   });
 
