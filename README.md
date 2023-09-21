@@ -1,4 +1,6 @@
-## Welcome to the Mario Game! Follow these instructions to play:
+## Welcome to the Mario Game! Follow these instructions to play
+
+<https://mario-game-lindamarko.vercel.app/>
 
 Collect as many coins as possible to reach a maximum score of **15**. You have three levels to explore, and there's no time limit.
 
