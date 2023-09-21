@@ -85,6 +85,27 @@ function logout() {
     .catch((error) => console.error(error));
 }
 
+function toggleModal(event) {
+  const registerForm = document.getElementById('register-form');
+  const loginForm = document.getElementById('login-form');
+  const loginButton = document.getElementById('login-button');
+  const registerButton = document.getElementById('register-button');
+
+  if (event.srcElement.id === 'register-button') {
+    registerForm.classList.remove('hidden');
+    loginForm.classList.add('hidden');
+    loginButton.classList.add('not-active');
+    registerButton.classList.remove('not-active');
+  }
+
+  if (event.srcElement.id === 'login-button') {
+    registerForm.classList.add('hidden');
+    loginForm.classList.remove('hidden');
+    loginButton.classList.remove('not-active');
+    registerButton.classList.add('not-active');
+  }
+}
+
 function showDisplay() {
   modalElement.classList.add('hidden');
   isLoggedIn()

@@ -10,8 +10,8 @@
   <body>
     <div id='modal' class='modal'>
       <div class="button-container">
-        <button id='register-button'>Register</button>
-        <button id='login-button' class='not-active'>Login</button>
+        <button onclick='toggleModal(event)' id='register-button'>Register</button>
+        <button onclick='toggleModal(event)' id='login-button' class='not-active'>Login</button>
       </div>
       <form onsubmit='register(event)' id='register-form'>
         <label for="register-email"></label>
