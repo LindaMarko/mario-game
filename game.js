@@ -73,9 +73,10 @@ function showScore() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  displayUserName();
-  showScore();
-  showDisplay();
+  startGame();
+  //displayUserName();
+  //showScore();
+  //showDisplay();
 });
 
 function register(event) {
@@ -256,7 +257,7 @@ function startGame() {
         '=      %%=*=@                  xx                                               =',
         '=                             xxx               @=@=          x   %%            =',
         '=                            xxxx   x                        x x       -+       =',
-        '=                ^    z  ^  xxxxx   x               ^    ^ x x x       ^()      =',
+        '=                ^    z  ^  xxxxx   x               ^    ^ x x x    ^  ^()       =',
         '=========================================================================     ===',
       ],
     ];
@@ -421,7 +422,7 @@ function startGame() {
         origin('center'),
         pos(width() / 2, height() / 2),
       ]);
-      updateScore(score);
+      //updateScore(score);
     });
 
     scene('win', ({ score }) => {
@@ -430,7 +431,7 @@ function startGame() {
         origin('center'),
         pos(width() / 2, height() / 2),
       ]);
-      updateScore(score);
+      //updateScore(score);
     });
   });
 
