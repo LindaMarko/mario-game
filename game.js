@@ -16,7 +16,7 @@ const client = new Client()
 const account = new Account(client);
 const database = new Databases(client);
 
-async function isLoggedIn() {
+function isLoggedIn() {
   return account
     .get()
     .then((response) => {
@@ -27,6 +27,56 @@ async function isLoggedIn() {
     })
     .catch((error) => console.error(error));
 }
+
+function getUserId() {
+  return account
+    .get()
+    .then((response) => {
+      return response.$id;
+    })
+    .catch((error) => console.error(error));
+}
+
+function displayUserName() {
+  account
+    .get()
+    .then((response) => {
+      usernameElement.textContent = response.name;
+    })
+    .catch((error) => console.error(error));
+}
+
+function updateScore(score) {
+  const currentHighScore = highScoreElement.textContent;
+  if (Number(score) > Number(currentHighScore)) {
+    getUserId().then((userId) => {
+      database
+        .updateDocument(databaseId, collectionId, userId, {
+          userId: userId,
+          highscore: score,
+        })
+        .then(() => {
+          showScore();
+        });
+    });
+  }
+}
+
+function showScore() {
+  getUserId().then((userId) => {
+    database
+      .listDocuments(databaseId, collectionId, [Query.equal('userId', userId)])
+      .then((response) => {
+        highScoreElement.textContent = response.documents[0].highscore;
+      });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  displayUserName();
+  showScore();
+  showDisplay();
+});
 
 function register(event) {
   account
@@ -50,6 +100,8 @@ function register(event) {
         )
         .then(() => {
           showDisplay();
+          displayUserName();
+          showScore();
         });
     })
     .catch((error) => console.error(error));
@@ -80,6 +132,7 @@ function logout() {
       alert('Logged out');
       console.log('Current Session deleted');
       showDisplay();
+      modalElement.classList.add('hidden');
       highScoreElement.textContent = '';
     })
     .catch((error) => console.error(error));
@@ -125,8 +178,6 @@ function showDisplay() {
     })
     .catch((error) => console.error(error));
 }
-
-showDisplay();
 
 //Kaboom game
 function startGame() {
@@ -370,6 +421,7 @@ function startGame() {
         origin('center'),
         pos(width() / 2, height() / 2),
       ]);
+      updateScore(score);
     });
 
     scene('win', ({ score }) => {
@@ -378,6 +430,7 @@ function startGame() {
         origin('center'),
         pos(width() / 2, height() / 2),
       ]);
+      updateScore(score);
     });
   });
 

@@ -36,7 +36,6 @@ input[type=submit] {
 
 .button-container button {
   border: none;
-  background-color: transparent;
   color: white;
   padding: 5px;
   background-color: #0aad02;
@@ -59,5 +58,6 @@ input[type=submit] {
 
 h3 {
   color: white;
+  margin: 2px;
 }
 
