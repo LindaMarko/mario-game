@@ -2,7 +2,7 @@
 
 <https://mario-game-lindamarko.vercel.app/>
 
-Collect as many coins as possible to reach a maximum score of **15**. You have three levels to explore, and there's no time limit.
+Collect as many coins as possible to reach a maximum score of **40**. You have three levels to explore, and there's no time limit.
 
 **Controls:**
 - Use the **left arrow key** to move left.
@@ -25,6 +25,6 @@ Collect as many coins as possible to reach a maximum score of **15**. You have t
 7. **Restart:** If you want to start over or refresh the game, simply **refresh the page** in your web browser.
 
 **Winning the Game:**
-Your goal is to reach a maximum score of 15 by collecting coins across the three levels. There's no time limit, so take your time.
+Your goal is to reach a maximum score of 40 by collecting coins across the three levels. There's no time limit, so take your time.
 
 Enjoy the game and see if you can reach the maximum score and complete all three levels. Good luck!
